@@ -1,0 +1,1526 @@
+# a lot of random programs for games that I had due to various activities.  I organized them all into one big gamecollection
+gameToPlay = 0
+while gameToPlay not in ["Connect Four", "Dominos", "Dino Hunt", "Minesweeper", "Othello", "Uno"]:
+    gameToPlay = input("Out of Connect Four, Dominos, Dino Hunt, Minesweeper, Othello, and Uno, what do you want to play? ")
+if gameToPlay == 'Connect Four':
+    # Python Class 3015
+    # Lesson 12 Problem 1
+    # Author: Mathfan9 (414044)
+    # This program creates a connect four game.
+    print("""Dynamic Games presents:    """)
+    for i in range(40):
+        print('')
+        for i in range(1000000):
+            pass
+    print("Keep waiting ...")
+    for i in range(40):
+        print('')
+        for i in range(1000000):
+            pass
+    print("Connect Four!!!")
+    print('')
+    def print_board(listOne, listTwo, listThree, listFour, listFive, listSix, listSeven):
+        '''This prints a connect four board!
+        Its inputs are a series of lists for each column of the board.
+        Its output is a string which is the board printed.
+        lists -> string'''
+        print('0 1 2 3 4 5 6')  
+        for row in range(6):  # for each row of the board
+            print(listOne[row] + listTwo[row] + listThree[row] + listFour[row] + listFive[row] + listSix[row] + listSeven[row]) # print row 
+            
+    def if_win(listOne, listTwo, listThree, listFour, listFive, listSix, listSeven):
+        '''This takes a series of lists
+        which represent the columns of a connect four board!
+        It takes those lists, determines if someone wins or not,                              
+        and outputs the booleen value respectively.
+        lists -> bool'''                                                    # for each column check if there are any wins like this:  X
+        for column in [listOne, listTwo, listThree, listFour, listFive, listSix, listSeven]:       #                                  X
+            for n in range(3):                                                                     #                                  X                                 
+                if column[n] == column[n+1] == column[n+2] == column[n+3] != '.  ':                 #                                  X
+                    return True
+                
+        for i in range(6):                                                            # check if there are any wins like this: XXXX
+            if listOne[i] == listTwo[i] == listThree[i] == listFour[i] != '.  ':
+                return True
+            elif listTwo[i] == listThree[i] == listFour[i] == listFive[i] != '.  ':    
+                return True
+            elif listThree[i] == listFour[i] == listFive[i] == listSix[i] != '.  ':
+                return True
+            elif listFour[i] == listFive[i] == listSix[i] == listSeven[i] != '.  ':
+                return True
+            
+        for i in range(3):                                                                # check if there are any wins like this:  X
+            if listSeven[i] == listSix[i+1] == listFive[i+2] == listFour[i+3] != '.  ':    #                                        X   
+                return True                                                               #                                       X
+            elif listSix[i] == listFive[i+1] == listFour[i+2] == listThree[i+3] != '.  ':  #                                      X
+                return True                                                                   
+            elif listFive[i] == listFour[i+1] == listThree[i+2] == listTwo[i+3] != '.  ':
+                return True
+            elif listFour[i] == listThree[i+1] == listTwo[i+2] == listOne[i+3] != '.  ':
+                return True
+            
+        for i in range(3):                                                                # check if there are any wins like this: X
+            if listOne[i] == listTwo[i+1] == listThree[i+2] == listFour[i+3] != '.  ':     #                                         X
+                return True                                                               #                                          X
+            elif listTwo[i] == listThree[i+1] == listFour[i+2] == listFive[i+3] != '.  ':  #                                           X
+                return True
+            elif listThree[i] == listFour[i+1] == listFive[i+2] == listSix[i+3] != '.  ':
+                return True
+            elif listFour[i] == listFive[i+1] == listSix[i+2] == listSeven[i+3] != '.  ':
+                return True
+        return False
+
+    def drop_piece(columnList, piece):
+        '''This function takes an input of a list, 
+        which corresponds to the column the piece is being dropped in, 
+        and a string, which corresponds to the piece.  
+        It will take these and output the list columnList.
+        It will output a string stating the column is full if the column is full.  
+        (list, str) -> list or string'''
+        if columnList[0] != '.  ':
+            return 'Full!'
+        for i in range(-1, -7, -1):                                # This goes through the bottom of the column and goes up
+            if columnList[i] == '.  ':                               # If the part being checked is empty
+                columnList[i] = piece                              # Replace it with a piece
+                break                                              
+            else:                                                 
+                pass
+        return columnList
+
+    def drop_piece_in_board(column, columnListOne, columnListTwo, columnListThree, columnListFour, columnListFive, columnListSix, columnListSeven, piece):
+        '''This function takes a variable, seven lists, and a string as input.
+        The variable represents the column that whoever is using the function wants the piece to be dropped in.
+        The lists represent the various columns.
+        The string represents the piece being dropped.
+        This function returns as output the list that was changed or a string if the list is too full.
+        variable, lists, str -> list or string'''
+        if column == 0:                              # Depending on what column is, drop the piece into a list
+            return drop_piece(columnListOne, piece)
+        elif column == 1:                             
+            return drop_piece(columnListTwo, piece)
+        elif column == 2:
+            return drop_piece(columnListThree, piece)
+        elif column == 3:
+            return drop_piece(columnListFour, piece)
+        elif column == 4:
+            return drop_piece(columnListFive, piece)
+        elif column == 5:
+            return drop_piece(columnListSix, piece)
+        elif column == 6:
+            return drop_piece(columnListSeven, piece)
+
+    xName = str(input("Player X, enter your name: "))
+    oName = str(input("Player O, enter your name: "))
+    columnZeroList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']    # Make lists for all the columns
+    columnOneList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    columnTwoList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    columnThreeList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    columnFourList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    columnFiveList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    columnSixList = ['.  ', '.  ', '.  ', '.  ', '.  ', '.  ']
+    print_board(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList)  # print board
+
+    for pieces in range(21):                      # For all the pieces (there are 21 pieces)
+        while True:
+            column = ''
+            while column not in ['0', '1', '2', '3', '4', '5', '6']:  # keep asking until a legitimate answer is recieved
+                column = str(input(xName + ', you are X, what column do you want to drop your piece in?: '))
+            if drop_piece_in_board(int(column), columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList, 'X ') != 'Full!': # drop a piece
+                break
+            else:                                                                           # if the column chosen is full
+                print("That column is too full, try again!")                                 # try again
+            
+        # Print the new board and check if somebody won
+        print_board(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList) 
+        if if_win(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList) == True:
+            print('Congratulations, ' + xName + ', You won!')
+            break
+
+        while True:
+            column = ''
+            while column not in ['0', '1', '2', '3', '4', '5', '6']:  # keep asking until a legitimate answer is recieved
+                column = str(input(oName + ', you are O, what column do you want to drop your piece in?: '))
+            if drop_piece_in_board(int(column), columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList, 'O ') != 'Full!': # drop a piece
+                break
+            else:                                                                            # if the column chosen is full
+                print("That column is too full, try again!")                                 # try again
+            
+        # Print the new board and check if somebody won
+        print_board(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList) 
+        if if_win(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList) == True:
+            print('Congratulations, ' + oName + ', You won!')
+            break
+
+
+            
+    # If somebody won, a message would already have been outputted by the program, so do nothing      
+    if if_win(columnZeroList, columnOneList, columnTwoList, columnThreeList, columnFourList, columnFiveList, columnSixList) == False:
+        print('This was a draw.')
+elif gameToPlay == 'Dominos':
+    import random
+    print("""Dynamic Games presents the classic game of Dominos!""")
+    class Domino:
+        '''Represents a Domino class!'''
+
+        def __init__(self, firstNumber, secondNumber):
+            '''the constructor method.
+               Takes the first number, second number, and self as inputs,
+               doesn't return anything'''
+            self.firstNum = firstNumber
+            self.secondNum = secondNumber
+
+        def __str__(self):
+            '''the string conversion method.
+               Takes self as a paramter.
+               It returns a string.'''
+            return str(self.firstNum) + ' : ' + str(self.secondNum)
+
+        def __eq__(self, other):
+            '''sees if self and other are equal'''
+            if (self.firstNum == other.firstNum) and (self.secondNum == other.secondNum):
+                return True
+            if (self.secondNum == other.firstNum) and (self.firstNum == other.secondNum):
+                return True
+            return False
+            
+
+        def is_match_left(self, other):
+            '''sees if two dominos match on the left side.
+               Takes self and other (another Domino object) as inputs and
+               outputs a boolean representing whether they match,
+               and whether self would have to be flipped to make them match'''
+            if self.secondNum == other.firstNum:
+                return True
+            self = self.flip()
+            return (self.secondNum == other.firstNum)
+
+        def is_match_right(self, other):
+            '''sees if two dominos match on the right side.
+               Takes self and other (another Domino object) as inputs and
+               outputs a boolean representing whether they match,
+               and a boolean which represents whether self would have to be flipped to make them match'''
+            if self.firstNum == other.secondNum:
+                return True
+            self = self.flip()
+            if self.firstNum == other.secondNum:
+                return True
+            return False
+
+        def flip(self):
+            '''This flips a Domino.
+               it redefines self.firstNum as self.secondNum
+               Takes self as an input and returns nothing.'''
+            savingSecondNum = self.secondNum
+            savingFirstNum = self.firstNum
+            self.firstNum = savingSecondNum
+            self.secondNum = savingFirstNum
+            return self
+
+
+    class DominoSet:
+        '''Represents a set of Dominos!
+        attributes:
+            set = a list containing the 28 Dominos in DominoSet
+        methods:
+            __init__ - the constructor method.
+                       Takes self as a paramter and returns nothing
+            __str__ - the string conversion method.
+                      Takes self as a paramter and returns a string
+            set_up - this method divides the dominos amongst four players.
+                      Takes self and four DominoPlayers as inputs and doesn't output anything.'''
+
+        def __init__(self):
+            '''the constructor method.
+               Takes self as a paramter and returns nothing.'''
+            self.set = []
+            for n in range(7):
+                for a in range(n,7):
+                    self.set.append(Domino(n,a))
+            random.shuffle(self.set)
+
+        def __str__(self):
+            '''the string conversion method.
+               Takes only self as an input and returns a string.'''
+            return 'A set with length ' + len(self.set) + '.'
+
+        def set_up(self, playerOne, playerTwo, playerThree, playerFour):
+            '''this method divides the dominos amongst four players.
+               Takes self and four DominoPlayers as inputs and doesn't output anything.'''
+            setOfDominos = self.set
+            for i in range(7):
+                for n in [playerOne, playerTwo, playerThree, playerFour]:
+                    hand = n.get_hand()
+                    domino = setOfDominos[0]
+                    setOfDominos.remove(domino)
+                    hand.append(domino)
+
+    class DominoChain:
+        '''Represents a chain of Dominos!
+        attributes:
+            chain = a list containing the Dominos in the chain
+        methods:
+            __init__ - the constructor method.
+                       Takes self and a Domino as parameters.
+                       It adds the Domino to chain to crate the chain
+            __str__ - the string conversion method.
+                      Takes self as a parameter.  It returns a string
+            left_domino - gets the left domino in the chain.
+                          Takes self as a parameter and returns the Domino
+            right_domino - gets the right domino in the chain.
+                           Takes self as a parameter and returns the Domino
+            add_left_domino - this adds a domino to the left side of the chain.
+                              Takes self and a Domino as a parameter
+                              and returns nothing.  
+            add_right_domino - this adds a domino to the right side of the chain.
+                               Takes self and a Domino as a parameter
+                               and returns nothing.'''
+
+        def __init__(self, domino):
+            '''the constructor method.
+               Takes self and a Domino as parameters.
+               It adds the Domino to chain to crate the chain.'''
+            self.chain = [domino]
+
+        def __str__(self):
+            '''the string conversion method.
+               Takes self as a parameter.  It returns a string.'''
+            return "a chain of dominos beginning with " + str(self.left_domino()) + " and ending with " + str(self.right_domino())
+
+        def left_domino(self):
+            '''gets the left domino in the chain.
+               Takes self as a parameter and returns the Domino'''
+            return self.chain[0]
+
+        def right_domino(self):
+            '''gets the right domino in the chain.
+               Takes self as a parameter and returns the Domino.'''
+            return self.chain[-1]
+
+        def add_left_domino(self, Domino):
+            '''this adds a domino to the left side of the chain.
+               Takes self and a Domino as a parameter
+               and returns nothing.
+               DOES NOT CHECK IF THIS IS LEGAL!'''
+            self.chain.reverse()
+            self.chain.append(Domino)
+            self.chain.reverse()
+
+        def add_right_domino(self, Domino):
+            '''this adds a domino to the right side of the chain.
+               Takes self and a Domino as a parameter
+               and returns nothing.
+               DOES NOT CHECK IF THIS IS LEGAL!'''
+            self.chain.append(Domino)
+
+    class DominoPlayer:
+        '''represents a domino player!
+           attributes:
+            name = str representing the player's name
+            hand = list of Dominos representing the player's hand
+           methods:
+            __init__ - the constructor method.  Takes self and the player's name as parameters.  Returns nothing.
+            __str__ -  the string conversion method.  Takes self as a parameter.  Returns a string.
+            get_name - this gets the player's name.  Takes self as a parameter and returns the name (which is a string).
+            get_hand - this gets the player's hand.  Takes self as a parameter and returns the hand (which is a list).
+            has_won - this checks if the player has won.  Takes self as a parameter and returns a boolean representing whether the player's hand is empty or not
+            play_domino - this adds a domino to the chain.
+                          Takes self, the Domino, the chain, and which side to add it on as parameters.  This returns nothing.
+            take_turn - this makes the player take a turn.  Takes self and DominoChain as inputs.  This returns nothing.'''
+
+        def __init__(self, name, iscomputer):
+            '''the constructor method.
+               Takes self and the player's name as parameters.
+               Returns nothing.'''
+            self.name = name
+            self.hand = []
+            self.computer = iscomputer
+
+        def __str__(self):
+            '''the string conversion method.
+               Takes self as a parameter.
+               Returns a string.'''
+            answer = ''
+            answer += str(self.name) + " has a hand with the cards: " + "\n"
+            for domino in self.hand:
+                answer += str(domino)
+                answer += '\n'
+            return answer
+
+        def get_name(self):
+            '''this gets the player's name.
+               Takes self as a parameter.
+               Returns a string.'''
+            return self.name
+
+        def get_hand(self):
+            '''this gets the player's hand.
+               Takes self as a parameter.
+               Returns the hand (a list).'''
+            return self.hand
+
+        def has_won(self):
+            '''this checks if the player has won.
+               Takes self as a paramter
+               and returns a boolean representing whether the player's hand is empty or not.'''
+            return self.hand == []
+
+        def has_domino(self, domino):
+            '''this sees if self has a domino.
+               takes self and a Domino as inputs.
+               returns a boolean representing whether self has this Domino.'''
+            for member in self.hand:
+                if member == domino:
+                    return True
+            return False
+
+        def play_domino(self, domino, chain, side):
+            '''this adds a domino to the chain.
+               Takes self, the Domino, the chain, and which side to add it on as parameters.
+               This returns nothing.'''
+            if side == 'left':
+                chain.add_left_domino(domino)
+                self.hand.remove(domino)
+            if side == 'right':
+                chain.add_right_domino(domino)
+                self.hand.remove(domino)
+
+        def take_turn(self, dominochain):
+            '''this makes the player take a turn.
+               Takes self and dominochain as inputs.
+               This returns nothing'''
+            couldNotPlay = False
+            dominoToAdd = 0
+            if self.computer == False:
+                dominosToAddLeft = ()
+                dominosToAddRight =()
+                rightDomino = dominochain.right_domino()
+                leftDomino = dominochain.left_domino()
+                print("The chain is " + str(dominochain))
+                print(str(self))
+                
+                for domino in self.hand:
+                    canMatchLeft = domino.is_match_left(leftDomino)
+                    if canMatchLeft == True:
+                        savingDomino = Domino(domino.firstNum, domino.secondNum)
+                        dominosToAddLeft = dominosToAddLeft + (savingDomino,)
+                    canMatchRight = domino.is_match_right(rightDomino)
+                    if canMatchRight == True:
+                        dominosToAddRight = dominosToAddRight + (domino,)
+                    
+                if len(dominosToAddRight) == len(dominosToAddLeft) == 0:
+                    print("Sorry, you couldn't play anything.")
+                    couldNotPlay = True
+                else:    
+                    print("These are the dominos you can play.")
+                    print("If it is a flipped version of a domino listed earlier (or a domino is repeated), that is the option to play it on the right and not the left side.")
+                    index = 1
+                    for domino in dominosToAddLeft:
+                        print(str(index) + ' - ' + str(domino))
+                        index += 1
+                    lastLeft = index - 1
+                    for domino in dominosToAddRight:
+                        print(str(index) + ' - ' + str(domino))
+                        index += 1
+
+                    dominoToAdd = 0
+                    while (dominoToAdd < 1) or (dominoToAdd >(index-1)):
+                        dominoToAdd = input("What domino do you want to play?: ")
+                        if dominoToAdd.isdigit():
+                            dominoToAdd = int(dominoToAdd)
+                        else:
+                            dominoToAdd = 0
+                        
+                    if dominoToAdd <= lastLeft:
+                        dominoToPlay = dominosToAddLeft[dominoToAdd-1]
+                        input("Press enter to play the domino.")
+                        self.play_domino(dominoToPlay, dominochain, 'left')
+
+                    else:
+                        dominoToAdd -= lastLeft
+                        dominoToPlay = dominosToAddRight[dominoToAdd-1]
+                        input("Press any key to play the domino.")
+                        self.play_domino(dominoToPlay, dominochain, 'right')
+
+                    
+            else:
+                print("The chain is " + str(dominochain))
+                rightDomino = dominochain.right_domino()
+                leftDomino = dominochain.left_domino()
+                dominosToAddLeft = ()
+                dominosToAddRight = ()
+                
+                for domino in self.hand:
+                    canMatchLeft = domino.is_match_left(leftDomino)
+                    if canMatchLeft == True:
+                        savingDomino = Domino(domino.firstNum, domino.secondNum)
+                        dominosToAddLeft = dominosToAddLeft + (savingDomino,)
+                    canMatchRight = domino.is_match_right(rightDomino)
+                    if canMatchRight == True:
+                        dominosToAddRight = dominosToAddRight + (domino,)
+
+                        
+                if len(dominosToAddLeft) == len(dominosToAddRight) == 0:
+                    print("the computer couldn't play anything.")
+                    couldNotPlay = True
+                    
+                elif len(dominosToAddLeft) == 0:
+                    dominoToAdd = random.randint(1,len(dominosToAddRight))
+                    dominoToPlay = dominosToAddRight[dominoToAdd - 1]
+                    print("The computer is playing " + str(dominoToPlay))
+                    input("Press enter for the computer to play the domino. ")
+                    self.play_domino(dominoToPlay, dominochain, 'right')
+                    
+                elif len(dominosToAddRight) == 0:
+                    dominoToAdd = random.randint(1,len(dominosToAddLeft))
+                    dominoToPlay = dominosToAddLeft[dominoToAdd - 1]
+                    print("The computer is playing " + str(dominoToPlay))
+                    input("Press enter for the computer to play the domino. ")
+                    self.play_domino(dominoToPlay, dominochain, 'left')
+
+
+                else:
+                    if random.random() < 0.5:
+                        dominoToAdd = random.randint(1,len(dominosToAddLeft))
+                        dominoToPlay = dominosToAddLeft[dominoToAdd - 1]
+                        print("The computer is playing " + str(dominoToPlay))
+                        input("Press enter for the computer to play the domino. ")
+                        self.play_domino(dominoToPlay, dominochain, 'left')
+                        
+                    else:
+                        dominoToAdd = random.randint(1,len(dominosToAddRight))
+                        dominoToPlay = dominosToAddRight[dominoToAdd - 1]
+                        print("The computer is playing " + str(dominoToPlay))
+                        input("Press enter for the computer to play the domino. ")
+                        self.play_domino(dominoToPlay, dominochain, 'right')
+            return couldNotPlay
+
+    def play_dominos():
+        '''This plays a game of dominos.
+        It takes no inputs and returns nothing.'''
+        print("Dynamic Games presents Domino!")
+        desiredDomino = Domino(6,6)
+        numCouldNotPlay = 0
+        playerName = input("What is your name? ")
+        HumanPlayer = DominoPlayer(playerName, False)
+        computerOne = DominoPlayer('computer One', True)
+        computerTwo = DominoPlayer('computer Two', True)
+        computerThree = DominoPlayer('computer Three', True)
+        playerList = [computerOne, HumanPlayer, computerTwo, computerThree]
+        
+        dominoset = DominoSet()
+        dominoset.set_up(playerList[0], playerList[1], playerList[2], playerList[3])
+        for player in playerList:
+            if player.has_domino(desiredDomino):
+                player.get_hand().remove(desiredDomino)
+                dominochain = DominoChain(desiredDomino)
+                break
+
+        playerNum = 0
+        while True:
+            player = playerList[playerNum]
+            couldNotPlay = player.take_turn(dominochain)
+            if player.has_won():
+                print(str(player.get_name()) + " has won! " + "\n" + "Thanks for playing!")
+                break
+            if couldNotPlay == True:
+                if numCouldNotPlay == 0:
+                    lastToPlay = player.get_name()
+                numCouldNotPlay += 1
+            if couldNotPlay == False:
+                numCouldNotPlay = 0
+            if numCouldNotPlay == 4:
+                print(lastToPlay + " has won! " + "\n" + "Thanks for playing!")
+            else:
+                playerNum += 1
+                if playerNum > 3:
+                    playerNum = 0
+
+    play_dominos()
+elif gameToPlay == 'Dino Hunt':
+    # Python Class 3252
+    # Lesson 6 Problem 5
+    # Author: Mathfan9 (414044)
+
+    import random
+
+    ### Die class that we previously wrote ###
+
+    class Die:
+        '''Die class'''
+
+        def __init__(self,sides=6):
+            '''Die(sides)
+            creates a new Die object
+            int sides is the number of sides
+            (default is 6)
+            -or- sides is a list/tuple of sides'''
+            # if an integer, create a die with sides
+            #  from 1 to sides
+            if isinstance(sides,int):
+                self.numSides = sides
+                self.sides = list(range(1,sides+1))
+            else:  # use the list/tuple provided 
+                self.numSides = len(sides)
+                self.sides = list(sides)
+            # roll the die to get a random side on top to start
+            self.roll()
+
+        def __str__(self):
+            '''str(Die) -> str
+            string representation of Die'''
+            return 'A '+str(self.numSides)+'-sided die with '+\
+                   str(self.get_top())+' on top'
+
+        def roll(self):
+            '''Die.roll()
+            rolls the die'''
+            # pick a random side and put it on top
+            self.top = self.sides[random.randrange(self.numSides)]
+
+        def get_top(self):
+            '''Die.get_top() -> object
+            returns top of Die'''
+            return self.top
+
+        def set_top(self,value):
+            '''Die.set_top(value)
+            sets the top of the Die to value
+            Does nothing if value is illegal'''
+            if value in self.sides:
+                self.top = value
+
+    ### end Die class ###
+
+    class DinoDie(Die):
+        '''implements one die for Dino Hunt'''
+
+        def __init__(self, color):
+            '''DinoDie(color)
+            creates a new DinoDie object
+            color is a string that determines what type of DinoDie this is'''
+            # this has the same attributes as a Die plus a string called color
+            self.color = color   
+            if color == 'green':   # depending on the color create the sides
+                Die.__init__(self, ['dinosaur', 'leaf', 'foot', 'leaf', 'dinosaur', 'dinosaur'])
+            if color == 'yellow':
+                Die.__init__(self, ['foot', 'dinosaur', 'foot', 'leaf', 'dinosaur', 'leaf'])
+            if color == 'red':
+                Die.__init__(self, ['leaf', 'foot', 'foot', 'dinosaur', 'foot', 'leaf'])
+
+        def __str__(self):
+            '''str(DinoDie) -> str
+            a string representation of DinoDie'''
+            return "A " + str(self.color) + " Dino die with a " + str(self.get_top()) + " on top"
+
+        def get_color(self):
+            '''DinoDie.get_color() -> str
+            returns the color of the die.'''
+            return self.color
+
+    class DinoPlayer:
+        '''implements a player of Dino Hunt'''
+
+        def __init__(self, name):
+            '''DinoPlayer(name)
+            creates a new DinoPlayer object
+            name is a string that represents the player's name
+            points is an integer representing the number of points the player has'''
+            self.name = name
+            self.points = 0
+
+        def __str__(self):
+            '''str(DinoPlayer) -> str
+            a string representation of DinoPlayer'''
+            return str(self.name) + ' has ' + str(self.points) + ' points.'
+
+        def get_name(self):
+            '''DinoPlayer.get_name() -> str
+            returns the name of the player.'''
+            return self.name
+
+        def get_points(self):
+            '''DinoPlayer.get_points() -> int
+            returns the amount of points the player has'''
+            return self.points
+
+        def add_points(self, amount):
+            '''DinoPlayer.get_points(amount)
+            adds an integer amount to self.points
+            returns nothing'''
+            self.points += amount
+
+        def has_won(self, players):
+            '''DinoPlayer.get_points(players) -> bool
+            sees if out of all the players self has the most points.
+            takes players (a list of all the players in a DinoDice game) as input
+            returns a boolean representing if self won.'''
+            playerPointList = []
+            for player in players:  # for each player
+                playerPointList.append(player.get_points()) # add their points to a list
+            if max(playerPointList) == self.get_points():     #  see if the player has the most 
+                return True
+            return False
+
+        def take_turn(self):
+            '''DinoPlayer.take_turn() -> int
+            makes the DinoPlayer take a turn
+            Returns an integer
+            The integer represents how many dinos were rolled'''
+            dice = []
+            # each turn has a new set of die so we create that
+            for greenDie in range(6):
+                dice.append(DinoDie('green'))
+            for yellowDie in range(4):
+                dice.append(DinoDie('yellow'))
+            for redDie in range(3):
+                dice.append(DinoDie('red'))  
+                
+            numGreen = 0
+            numYellow = 0   # initialize some values
+            numRed = 0
+            numFeet = 0
+            numDinosaur = 0
+            print(self.name + ' it\'s your turn!')
+            print("You have " + str(len(dice)) + " dice remaining.")          # print some information about the player
+            print("6 green, 4 yellow, 3 red")
+            
+            while True:   # keep going until the player is stomped, runs out of die, or opts to end his/her turn
+                input("Press any key to select dice and roll")
+                random.shuffle(dice)
+                if len(dice) == 2:           # if there are only two dice left
+                    dieOne = dice[0]
+                    dieTwo = dice[1]
+                    for die in [dieOne, dieTwo]:           # roll them all
+                        die.roll()
+                        print(die)
+                    dieOneTop = dieOne.get_top()
+                    dieTwoTop = dieTwo.get_top()
+                
+                    for dieTop in [dieOneTop, dieTwoTop]:
+                        if dieTop == 'foot':                     # see what is a foot
+                            numFeet += 1
+                        elif dieTop == 'dinosaur':               # and what is a dinosaur
+                            numDinosaur += 1
+                    print("This turn so far: " + str(numDinosaur) + " dinos and " + str(numFeet) + " feet.")
+                    if dieOneTop != 'leaf':            # if a die rolled is not a leaft
+                        dice.remove(dieOne)            # remove it from dice
+                    elif dieTwoTop != 'leaf':
+                        dice.remove(dieTwo)
+
+                if len(dice) == 1:          # if there is only one die left
+                    dieOne = dice[0]
+                    dieOne.roll()          # roll it
+                    print(dieOne)
+                    dieOneTop = dieOne.get_top()
+                    if dieTop == 'foot':                 # if it is a foot, add one to numFeet
+                        numFeet += 1
+                    elif dieTop == 'dinosaur':           # if it is a dino, add one to numDinosaur
+                        numDinosaur += 1
+                    print("This turn so far: " + str(numDinosaur) + " dinos and " + str(numFeet) + " feet.")
+                    if dieOneTop != 'leaf':
+                        dice.remove(dieOne)    # if it is not a leaf we will remove it              
+                if len(dice) == 0:             # if there are no die
+                    print("You can't play!") 
+                    return numDinosaur         # return how many points the player got
+
+                else:                        # most of the time, we will have a full three dice to work with
+                    dieOne = dice[0]
+                    dieTwo = dice[1]
+                    dieThree = dice[2]
+                    for die in [dieOne, dieTwo, dieThree]:
+                        die.roll()                      # roll each die
+                        print(die)
+                    dieOneTop = dieOne.get_top()        # get the tops
+                    dieTwoTop = dieTwo.get_top()
+                    dieThreeTop = dieThree.get_top()
+                    
+                    for dieTop in [dieOneTop, dieTwoTop, dieThreeTop]:          # for each die check its top
+                        if dieTop == 'foot':                              # if it is a foot, add one to numFeet
+                            numFeet += 1 
+                        elif dieTop == 'dinosaur':           # if it is a dinosaur, add one to numDinosaur
+                            numDinosaur += 1
+                    print("\n" + "This turn so far: " + str(numDinosaur) + " dinos and " + str(numFeet)+ " feet.")
+                    if dieOneTop != 'leaf':                    # if something isn't a leaf, remove it
+                        dice.remove(dieOne)
+                    if dieTwoTop != 'leaf':
+                        dice.remove(dieTwo)
+                    if dieThreeTop != 'leaf':
+                        dice.remove(dieThree)
+
+                if numFeet == 3:                              # if three feet have been rolled
+                    print("You got stomped!")                 
+                    numDinosaur = 0                           # they lose all their dinos
+                    return 0                                  # return how many points the player got
+                
+                print("You have " + str(len(dice)) + " dice remaining.")  # give the player some info
+                for die in dice:
+                    if die.get_color() == 'green':    
+                        numGreen += 1
+                    elif die.get_color() == 'yellow':
+                        numYellow += 1
+                    else:
+                        numRed += 1                    
+                print(str(numGreen) + " green, " + str(numYellow) + " yellow, " + str(numRed) + " red")       
+
+                willPlay = ''
+                while willPlay != 'y' and willPlay != 'n':
+                    willPlay = str(input("Do you want to roll again? (y/n) "))          # see if they want to keep on rolling
+                if willPlay == 'n':                                       # if they don't
+                    print("\n" + "Ok!")
+                    return numDinosaur                                    # return how many points they got
+                    
+    def play_dino_hunt(numPlayers,numRounds):
+        '''play_dino_hunt(numPlayer,numRounds)
+        plays a game of Dino Hunt
+          numPlayers is the number of players
+          numRounds is the number of turns per player'''   
+        playerList = []
+        print("Dynamic Games presents Dino Hunt!")
+        for name in range(1, numPlayers+1):
+            playerName = input("Player " + str(name) + ", enter your name: ")   # get the player's names
+            player = DinoPlayer(playerName)
+            playerList.append(player)                        # add the players onto a list
+            
+        for aRound in range(1, numRounds + 1):                # for each round
+            print("\n" + "Round " + str(aRound))
+            for player in playerList:                        # print info about each player
+                print(player)
+            for player in playerList:                        # for each player
+                playerPointToBeAdded = player.take_turn()    # see how many points they got when they took a turn
+                player.add_points(playerPointToBeAdded)      # add that many points to player.points (using a method of course)
+
+        numWinningPlayers = 0
+        for player in playerList:
+            print(player)
+        for player in playerList:                            # for each player
+            if player.has_won(playerList):                   # check to see if they have won
+                numWinningPlayers += 1                       # if they have add one to the number of winning players
+                print(str(player.get_name()) + " has won!")  
+        if numWinningPlayers > 1:                            # if more then one player won
+            print("There was a tie!")                       # there was a tie
+    numPlayers = int(input("How many people do you want to play?"))
+    numRounds = int(input("How many rounds do you want to play?"))
+    play_dino_hunt(numPlayers, numRounds)
+elif gameToPlay == "Minesweeper":
+    # Python Class 3252
+    # Lesson 10 Problem 1
+    # Author: Mathfan9 (414044)
+    from tkinter import *
+    from tkinter import messagebox
+    from random import *
+    print("Dynamic Games presents Minesweeper!")
+    class MinesweeperBlock(Button):
+        '''Represents one of the blocks in Minesweeper!
+        This inherits a lot of properties from a Button class
+        See more information in the docstrings for the methods.'''
+
+        def __init__(self, master, coord):
+            '''MinesweeperBlock(master, coord)
+            takes self,master, and coord as parameters
+            coord is a tuple representing the coordinates of this mine
+            This is the constructor method'''
+            Button.__init__(self, master, width = 4, height = 2)  # the width and height makes it a square
+            # initialize attributes
+            (self.isFlagged, self.isMined, self.isExposed) = (False,) * 3
+            self.coor = coord
+            self.numNearMines = 0
+            self.colorMap = ['','blue','darkgreen','red','purple','maroon','cyan','black','dim gray']
+            self.bind('<Button-2>', self.flag)  # make it so we can flag the block
+            
+        def flag(self, event):
+            '''MinesweeperBlock.flag()
+            flags the MinesweeperBlock
+            takes only self and event as parameters
+            event is an input because this method is bound to '<Button-2>'.  '''
+            if self.is_exposed():
+                pass
+            # make sure we want to flag this block (note that we don't check to see if it is a mine, we want to flag mines)
+            else:
+                self.toggle_is_flagged()  # just change the truth value
+                if self.is_flagged(): 
+                    self['text'] = '*'  # change the text
+                    self.master.flagLabel['text'] = str(int(self.master.flagLabel['text']) - 1)  # change flagLabel as necessary 
+                elif not self.is_flagged():
+                    self['text'] = ''  # change the text
+                    self.master.flagLabel['text'] = str(int(self.master.flagLabel['text']) + 1)  # change flagLabel
+
+        def reveal(self):
+            '''MinesweeperBlock.reveal()
+            reveals the block
+            takes self as an input'''
+            if self.is_exposed():
+                pass
+            elif self.is_flagged():
+                pass
+            else:   # this is to avoid me clicking on a flagged cell and something happening
+                self.reveal_a_cell()  # reveal the actual cell
+                self.master.shouldCheck = True  # turn on a parameter (see line 160)
+                if self.is_mine():
+                    self.master.reveal_all_mines()   # if it is a mine, reveal all the other mines
+                else:
+                    self.show_num_near_mines()     # otherwise show the number of mines near self
+                    if self.numNearMines == 0:
+                        self.master.reveal_near_cells(self.coor)   # if there are none, reveal all the cells around self
+                    self.master.check_if_won()
+
+        def reveal_a_cell(self):
+            '''MinesweeperBlock.reveal_cell()
+            this reveals a single cell and does nothing else
+            it doesn't even show how many mines are near the cell
+            This takes only self as a parameter''' 
+            if self.is_mine():
+                self.reveal_mine()      # if it is a mine take appropriate actions
+                self.set_is_exposed()
+            else:
+                self.set_is_exposed()    # in any other case we need to toggle the truth value of self.is_exposed
+
+        def reveal_mine(self):
+            '''simply reveals a mine by turning its color red.
+            Only takes self as a parameter.'''
+            self['bg'] = 'red'
+
+        def is_mine(self):
+            '''This returns whether self is a mine
+            Takes only self as a parameter'''
+            return self.isMined
+
+        def get_num_near_mines(self):
+            '''this returns the number of mines near self.
+            only takes self as a parameter'''
+            return self.numNearMines
+
+        def is_exposed(self):
+            '''returns whether self is exposed
+            again, only takes self as a parameter'''
+            return self.isExposed
+
+        def is_flagged(self):
+            '''returns whether self is flagged
+            takes only self as a parameter'''
+            return self.isFlagged
+
+        def get_color_map(self):
+            '''returns self.colorMap
+            takes only self as an input'''
+            return self.colorMap
+
+        def show_num_near_mines(self):
+            '''MinesweeperBlock.show_num_near_mines()
+            This simply displays the number of mines near self.
+            it takes only self as a parameter
+            If self has no mines near it, this does nothing'''
+            if self.numNearMines > 0:  # only do this if there is actual text to display
+                self['text'] = str(self.numNearMines) 
+                self['fg'] = self.colorMap[self.numNearMines]  # change the text's color
+
+        def set_num_near_mines(self, numNearMines):
+            '''this sets self.numNearMines to numNearMines
+            This takes self as an input
+            It also takes numNearMines,
+            which is an integer representing the number of mines bordering self.'''
+            self.numNearMines = numNearMines
+
+        def toggle_is_flagged(self):
+            '''This changes the truth value of self.isFlagged
+            takes only self as a parameter'''
+            self.isFlagged = not self.isFlagged
+
+        def set_is_exposed(self):
+            '''MinesweeperBlock.set_is_exposed()
+            This sets self.isExposed to True
+            The reason this doesn't just toggle self.isExposed
+            is because once a cell is exposed, it will never be unexposed
+            This, I just set self.isExposed to True.
+            Takes self as an input'''
+            if not self.isExposed:  # make sure we are dealing with a cell that isn't exposed
+                self.isExposed = True 
+                if not self.is_mine():   # if the cell isn't a mine
+                    self['relief'] = SUNKEN  # change the relief
+
+        def set_is_mined(self):
+            '''This sets isMined to True
+            Again, I never want to unmine a cell
+            As a result, I do not toggle self.isMined
+            This takes self as an input.'''
+            self.isMined = True
+        
+    class MinesweeperFrame(Frame):
+        '''represents a frame in Minesweeper
+        this inherits from a frame
+        see more info in the docstrings'''
+
+        def __init__(self, master, width, height, numMines):
+            '''MinesweeperFrame(master, width, height, numMines)
+            constructor method
+            This takes self, master, width, height, and numMines as inputs
+            width and height represent the width and height of the future frame
+            numMines is the number of mines on the frame'''
+            Frame.__init__(self, master, bg = 'black')   # set up the actual frame
+            self.grid()
+            self.myCellDict = {}
+            self.width = width   # initialize some values
+            self.height = height
+            self.numMines = numMines
+            self.shouldCheck = True  # this demonstrates whether self should check to see if the player has won
+            self.coordinates = list(self.myCellDict.keys())
+            self.myCells = list(self.myCellDict.values())  # we will want these so that we can make some easy references 
+            
+            # grid the cells
+            for myWidth in range(width):
+                for myHeight in range(height):
+                    Cell = MinesweeperBlock(self, (myWidth, myHeight))
+                    Cell['command'] = Cell.reveal  # since this is a method of MineCell, I had to make it MineCell's command this way
+                    self.myCellDict[(myWidth, myHeight)] = Cell  # add this cell onto myMineCellDict
+                    Cell.grid(column = myWidth, row = myHeight)
+
+            self.coordinates = list(self.myCellDict.keys())
+            self.myCells = list(self.myCellDict.values())  # we will want these so that we can make some easy references 
+            for mine in range(numMines):   # now we add in the mines
+                shuffle(self.coordinates)
+                myCellCoor = self.coordinates[0]   # pick a random coordinate
+                myCell = self.myCellDict.get(myCellCoor)
+                myCell.set_is_mined()     # get the appropriate cell and make it a mine
+                self.coordinates = self.coordinates[1:]  # to avoid making one cell having multiple mines
+
+                # now we go through every cell neighboring this mine and adding one to self.numNearMines
+                for xCoorChange in range(-1, 2):
+                    for yCoorChange in range(-1,2):
+                        myNewCellCoor = (myCellCoor[0] + xCoorChange, myCellCoor[1] + yCoorChange)   # pick the cell
+                        myNewCell = self.myCellDict.get(myNewCellCoor)    
+                        if type(myNewCell) == MinesweeperBlock:  # different cells have different numbers of cells neighboring them so this is necessary
+                            myNewCell.set_num_near_mines(myNewCell.get_num_near_mines() + 1)   # add one to the self.numNearMines
+                            
+            self.coordinates = list(self.myCellDict.keys())
+            self.myCells = list(self.myCellDict.values())   # self.coordinates and self.myMines were changed, so we are resetting them
+            self.flagLabel = Label(self, text = str(self.numMines))  # create a label to show how many flags are left
+            self.flagLabel.grid(column = 0, row = height + 1, columnspan = width)
+            
+        def reveal_all_mines(self):
+            '''MinesweeperFrame.reveal_all_mines()
+            This takes only self as an input
+            This reveals all the mines in MinesweeperFrame'''
+            for cell in self.myCells:   # for every cell
+                if cell.is_mine():  # see if it is a mine
+                    if cell.is_flagged():  # if it is flagged unflag it
+                        cell.toggle_is_flagged()
+                    cell.reveal_a_cell()   # reveal the mine
+                cell['state'] = DISABLED   # otherwise just disable the cell
+                cell.set_is_exposed()
+            messagebox.showerror('Minesweeper', 'KABOOM! You lose.', parent = self)   # we are showing all the mines only if the player lost, so we need this
+
+        def reveal_near_cells(self, coor):
+            '''MinesweeperFrame.reveal_cells(coor)
+            This reveals all the cells around coor, including coor
+            This takes self and coor as parameters
+            coor is a tuple representing the coordinate
+            that everything around it will be revealed (as well as itself)'''
+            for xCoorChange in range(-1, 2):
+                for yCoorChange in range(-1, 2):   # go through all the near cells
+                    myNewCellCoor = (coor[0] + xCoorChange, coor[1] + yCoorChange)  
+                    myNewCell = self.myCellDict.get(myNewCellCoor)   # get the cell
+                    if type(myNewCell) == MinesweeperBlock:   # if it is an actual cell
+                        if not myNewCell.is_exposed():
+                            if not myNewCell.is_mine():   # and it is not exposed or mined
+                                myNewCell.reveal()   # reveal it
+
+        def check_if_won(self):
+            '''MinesweeperFrame.check_if_won()
+            this takes only self as a parameter
+            it checks if the player has won'''
+            if self.shouldCheck:   # if it is ok to check 
+                numExposed = 0
+                if int(self.flagLabel['text']) >= 0:
+                    for cell in self.myCells:
+                        if not cell.is_mine():
+                            if cell.is_exposed():
+                                numExposed += 1     # count how many cells are exposed
+                                
+                if numExposed == ((self.width * self.height) - self.numMines):   # if the right amount are exposed
+                    messagebox.showinfo('Minesweeper', 'Congratulations -- you won!', parent = self)
+                    for cell in self.myCells:
+                        cell.set_is_exposed()   # disable all the cells
+                        cell['state'] = DISABLED
+                self.shouldCheck = False   # we already checked, so until we need to again, don't      
+
+                                 
+    root = Tk()
+    width = int(input("How wide do you want the board to be?"))
+    height = int(input("How high do you want the board to be?"))
+    numMines = int(input("How many mines do you want?"))
+    MinesweeperFrame(root, width, height, numMines)
+elif gameToPlay == "Othello":
+    
+    from tkinter import *
+
+    class OthelloBoard:
+        '''represents a board of Othello'''
+
+        def __init__(self):
+            '''OthelloBoard()
+            creates a OthelloBoard in starting position'''
+            self.board = {}  # dict to store position
+            # create opening position
+            for row in range(8):
+                for column in range(8):
+                    coords = (row,column)
+                    if coords in [(3,3),(4,4)]:
+                        self.board[coords] = 1  # player 1
+                    elif coords in [(3,4),(4,3)]:
+                        self.board[coords] = 0  # player 0
+                    else:
+                        self.board[coords] = None  # empty
+            self.currentPlayer = 0  # player 0 starts
+            self.endgame = None  # replace with string when game ends
+
+        def get_piece(self,coords):
+            '''OthelloBoard.get_piece(coords) -> int
+            returns the piece at coords'''
+            return self.board[coords]
+
+        def get_endgame(self):
+            '''OthelloBoard.get_endgame() -> None or str
+            returns endgame state'''
+            return self.endgame
+
+        def get_player(self):
+            '''OthelloBoard.get_player() -> int
+            returns the current player'''
+            return self.currentPlayer
+
+        def next_player(self):
+            '''OthelloBoard.next_player()
+            advances to next player'''
+            self.currentPlayer = 1 - self.currentPlayer
+
+        def get_scores(self):
+            '''OthelloBoard.get_scores() -> tuple
+            returns a tuple containing player 0's and player 1's scores'''
+            pieces = list( self.board.values() )  # list of all the pieces
+            # count the number of pieces belonging to both players
+            return pieces.count(0), pieces.count(1)
+
+        def flip_pieces(self,coords,checkingOnly=False):
+            '''OthelloBoard.flip_pieces(coords[checkingOnly]) -> int
+            returns number of pieces flipped when a piece is played at coords
+              checkingOnly True just computes, doesn't actually flip
+              checkingOnly False also flips the pieces'''
+            # get player colors
+            thisPlayer = self.currentPlayer
+            otherPlayer = 1 - thisPlayer
+            flipped = 0  # counts flipped pieces
+            # loop over the 8 possible directions
+            for dr in [-1,0,1]:
+                for dc in [-1,0,1]:
+                    if dr==0 and dc==0:  # non-direction
+                        continue
+                    # look at the first square in the given direction
+                    (row,col) = (coords[0]+dr,coords[1]+dc)
+                    counter = 0  # keep track of how many squares have a
+                                 # piece of the opposite color
+                    # keep looking as long as we have pieces of the opposite
+                    #   color and we're still on the board
+                    while (0 <= row < 8) and (0 <= col < 8) and \
+                          self.board[(row,col)] == otherPlayer:
+                        (row,col) = (row+dr,col+dc) # continue moving in this direction
+                        counter += 1  # increment the count of number of stones flipped
+                    # the next stone must be of the current player's color
+                    #  (and still on the board)
+                    if (0 <= row < 8) and (0 <= col < 8) and \
+                       self.board[(row,col)] == thisPlayer:
+                        # this direction will get flipped
+                        flipped += counter  # update the overall flipped counter
+                        if not checkingOnly:  # if not just checking, flip them!
+                            for i in range(1,counter+1):
+                                self.board[(coords[0]+i*dr,coords[1]+i*dc)] = thisPlayer
+            return flipped
+
+        def get_legal_moves(self):
+            '''OthelloBoard.get_legal_moves() -> list
+            returns a list of the current player's legal moves'''
+            moves = []  # place legal moves here
+            for row in range(8):  # check each square
+                for column in range(8):
+                    coords = (row,column)
+                    # if space is empty and would flip pieces
+                    if self.board[coords] is None and \
+                       self.flip_pieces(coords,checkingOnly=True) > 0:
+                        moves.append(coords)  # add to list
+            return moves
+
+        def try_move(self,coords):
+            '''OthelloBoard.try_move(coords)
+            places the current player's piece in the given square if the
+              square is empty and the move is legal
+            also flips necessary pieces and goes to other player's turn'''
+            if self.board[coords] is not None:  # if square occupied
+                return  # do nothing
+            # flip any pieces and check how many got flipped
+            numFlipped = self.flip_pieces(coords)
+            if numFlipped > 0:  # if any pieces flipped
+                # set the target square to the current player's color
+                self.board[coords] = self.currentPlayer
+                self.next_player()  # next player's turn
+                self.check_endgame()  # check if game over
+
+        def check_endgame(self):
+            '''OthelloBoard.check_endgame()
+            checks if game is over
+            updates endgameMessage if over'''
+            # if current player has no legal move
+            if len(self.get_legal_moves()) == 0:
+                self.next_player()  # temporarily switch to next player
+                # if other player has no legal move, game is over
+                if len(self.get_legal_moves()) == 0:
+                    scores = self.get_scores()
+                    if scores[0] > scores[1]:
+                        self.endgame = 0
+                    elif scores[0] < scores[1]:
+                        self.endgame = 1
+                    else:
+                        self.endgame = 'draw'
+                self.next_player()  # return to original player
+    class OthelloSquare(Canvas):
+        '''displays a square in the Othello game'''
+
+        def __init__(self,master,r,c):
+            '''OthelloSquare(master,r,c)
+            creates a new blank Reversi square at coordinate (r,c)'''
+            # create and place the widget
+            Canvas.__init__(self,master,width=50,height=50,bg='medium sea green')
+            self.grid(row=r,column=c)
+            # set the attributes
+            self.position = (r,c)
+            # bind button click to placing a piece
+            self.bind('<Button>',master.get_click)
+
+        def get_position(self):
+            '''ReversiSquare.get_position() -> (int,int)
+            returns (row,column) of square'''
+            return self.position
+
+        def make_color(self,color):
+            '''ReversiSquare.make_color(color)
+            changes color of piece on square to specified color'''
+            ovalList = self.find_all()  # remove existing piece
+            for oval in ovalList:
+                self.delete(oval)
+            self.create_oval(10,10,44,44,fill=color)
+
+    class ReversiGame(Frame):
+        '''represents a game of Reversi'''
+
+        def __init__(self,master):
+            '''ReversiGame(master)
+            creates a new Reversi game'''
+            # initialize the Frame
+            Frame.__init__(self,master,bg='white')
+            self.grid()
+            # set up game data
+            self.colors = ('black','white')  # players' colors
+            # create board in starting position, player 0 going first
+            self.board = ReversiBoard() 
+            self.squares = {}  # stores ReversiSquares
+            for row in range(8):
+                for column in range(8):
+                    rc = (row,column)
+                    self.squares[rc] = ReversiSquare(self,row,column)
+            # set up scoreboard and status markers
+            self.rowconfigure(8,minsize=3)  # leave a little space
+            self.turnSquares = []  # to store the turn indicator squares
+            self.scoreLabels = []  # to store the score labels
+            # create indicator squares and score labels
+            for i in range(2):  
+                self.turnSquares.append(ReversiSquare(self,9,7*i))
+                self.turnSquares[i].make_color(self.colors[i])
+                self.turnSquares[i].unbind('<Button>')
+                self.scoreLabels.append(Label(self,text='2',font=('Arial',18) ) )
+                self.scoreLabels[i].grid(row=9,column=1+5*i)
+            self.passButton = Button(self,text='Pass',command=self.pass_move)
+            self.passButton.grid(row=9,column=3,columnspan=2)
+            self.update_display()
+
+        def get_click(self,event):
+            '''ReversiGame.get_click(event)
+            event handler for mouse click
+            gets click data and tries to make the move'''
+            coords = event.widget.get_position()
+            # try_move will do the move if valid
+            # it will do nothing if not
+            self.board.try_move(coords)
+            self.update_display()  # update the display
+
+        def pass_move(self):
+            '''ReversiGame.pass_move()
+            event handler for Pass button
+            passes for the player's turn'''
+            self.board.next_player()  # move onto next player
+            self.update_display()
+
+        def update_display(self):
+            '''ReversiGame.update_display()
+            updates squares to match board
+            also updates scoreboard'''
+            # update squares
+            for row in range(8):
+                for column in range(8):
+                    rc = (row,column)
+                    piece = self.board.get_piece(rc)
+                    if piece is not None:
+                        self.squares[rc].make_color(self.colors[piece])
+            # update the turn indicator
+            newPlayer = self.board.get_player()
+            oldPlayer = 1 - newPlayer
+            self.turnSquares[newPlayer]['highlightbackground'] = 'blue'
+            self.turnSquares[oldPlayer]['highlightbackground'] = 'white'
+            # update the score displays
+            scores = self.board.get_scores()
+            for i in range(2):
+                self.scoreLabels[i]['text'] = scores[i]
+            # enable or disable the Pass button
+            if len(self.board.get_legal_moves()) == 0:  # if no legal moves
+                self.passButton.config(state=NORMAL)  # enable button
+            else:  # if there are legal moves
+                self.passButton.config(state=DISABLED)
+            # if game over, show endgame message
+            endgame = self.board.get_endgame()
+            if endgame is not None:  # if game is over
+                # remove the turn indicator
+                self.turnSquares[newPlayer]['highlightbackground'] = 'white'
+                if isinstance(endgame,int):  # if a player won
+                    winner = self.colors[endgame]  # color of winner
+                    endgameMessage = '{} wins!'.format(winner.title())
+                else:
+                    endgameMessage = "It's a tie!"
+                Label(self,text=endgameMessage,font=('Arial',18)).grid(row=9,column=2,columnspan=4)
+
+    def play_reversi():
+        '''play_reversi()
+        starts a new game of Reversi'''
+        root = Tk()
+        root.title('Othello! (Presented by Dynamic Games)')
+        RG = ReversiGame(root)
+        RG.mainloop()
+    play_reversi()
+elif gameToPlay == "Uno":
+    import random
+    print("Dynamic Games presents Uno!!!!!")
+    class UnoCard:
+        '''represents an Uno card
+        attributes:
+          rank: int from 0 to 9
+          color: string'''
+
+        def __init__(self,rank,color):
+            '''UnoCard(rank,color) -> UnoCard
+            creates an Uno card with the given rank and color'''
+            self.rank = rank
+            self.color = color
+
+        def __str__(self):
+            '''str(Unocard) -> str'''
+            return(str(self.color)+' '+str(self.rank))
+
+        def is_match(self,other):
+            '''UnoCard.is_match(UnoCard) -> boolean
+            returns True if the cards match in rank or color, False if not'''
+            return (self.color == other.color) or (self.rank == other.rank)
+
+    class UnoDeck:
+        '''represents a deck of Uno cards
+        attribute:
+          deck: list of UnoCards'''
+
+        def __init__(self):
+            '''UnoDeck() -> UnoDeck
+            creates a new full Uno deck'''
+            self.deck = []
+            for color in ['red', 'blue', 'green', 'yellow']:
+                self.deck.append(UnoCard(0,color))  # one 0 of each color
+                for i in range(2):
+                    for n in range(1,10):  # two of each of 1-9 of each color
+                        self.deck.append(UnoCard(n,color))
+            random.shuffle(self.deck)  # shuffle the deck
+
+        def __str__(self):
+            '''str(Unodeck) -> str'''
+            return 'An Uno deck with '+str(len(self.deck))+' cards remaining.'
+
+        def is_empty(self):
+            '''UnoDeck.is_empty() -> boolean
+            returns True if the deck is empty, False otherwise'''
+            return len(self.deck) == 0
+
+        def deal_card(self):
+            '''UnoDeck.deal_card() -> UnoCard
+            deals a card from the deck and returns it
+            (the dealt card is removed from the deck)'''
+            return self.deck.pop()
+
+        def reset_deck(self,pile):
+            '''UnoDeck.reset_deck(pile) -> None
+            resets the deck from the pile'''
+            if len(self.deck) != 0:
+                return
+            self.deck = pile.reset_pile() # get cards from the pile
+            random.shuffle(self.deck)  # shuffle the deck
+
+    class UnoPile:
+        '''represents the discard pile in Uno
+        attribute:
+          pile: list of UnoCards'''
+
+        def __init__(self,deck):
+            '''UnoPile(deck) -> UnoPile
+            creates a new pile by drawing a card from the deck'''
+            card = deck.deal_card()
+            self.pile = [card]  # all the cards in the pile
+
+        def __str__(self):
+            '''str(UnoPile) -> str'''
+            return 'The pile has '+str(self.pile[-1])+' on top.'
+
+        def top_card(self):
+            '''UnoPile.top_card() -> UnoCard
+            returns the top card in the pile'''
+            return self.pile[-1]
+
+        def add_card(self,card):
+            '''UnoPile.add_card(card) -> None
+            adds the card to the top of the pile'''
+            self.pile.append(card)
+
+        def reset_pile(self):
+            '''UnoPile.reset_pile() -> list
+            removes all but the top card from the pile and
+              returns the rest of the cards as a list of UnoCards'''
+            newdeck = self.pile[:-1]
+            self.pile = [self.pile[-1]]
+            return newdeck
+
+    class UnoPlayer:
+        '''represents a player of Uno
+        attributes:
+          name: a string with the player's name
+          hand: a list of UnoCards'''
+
+        def __init__(self,name,deck):
+            '''UnoPlayer(name,deck) -> UnoPlayer
+            creates a new player with a new 7-card hand'''
+            self.name = name
+            self.hand = [deck.deal_card() for i in range(7)]
+
+        def __str__(self):
+            '''str(UnoPlayer) -> UnoPlayer'''
+            return str(self.name)+' has '+str(len(self.hand))+' cards.'
+
+        def get_name(self):
+            '''UnoPlayer.get_name() -> str
+            returns the player's name'''
+            return self.name
+
+        def get_hand(self):
+            '''get_hand(self) -> str
+            returns a string representation of the hand, one card per line'''
+            output = ''
+            for card in self.hand:
+                output += str(card) + '\n'
+            return output
+
+        def has_won(self):
+            '''UnoPlayer.has_won() -> boolean
+            returns True if the player's hand is empty (player has won)'''
+            return len(self.hand) == 0
+
+        def draw_card(self,deck):
+            '''UnoPlayer.draw_card(deck) -> UnoCard
+            draws a card, adds to the player's hand
+              and returns the card drawn'''
+            card = deck.deal_card()  # get card from the deck
+            self.hand.append(card)   # add this card to the hand
+            return card
+
+        def play_card(self,card,pile):
+            '''UnoPlayer.play_card(card,pile) -> None
+            plays a card from the player's hand to the pile
+            CAUTION: does not check if the play is legal!'''
+            self.hand.remove(card)
+            pile.add_card(card)
+
+        def take_turn(self,deck,pile):
+            '''UnoPlayer.take_turn(deck,pile) -> None
+            takes the player's turn in the game
+              deck is an UnoDeck representing the current deck
+              pile is an UnoPile representing the discard pile'''
+            # print player info
+            print(self.name+", it's your turn.")
+            print(pile)
+            print("Your hand: ")
+            print(self.get_hand())
+            # get a list of cards that can be played
+            topcard = pile.top_card()
+            matches = [card for card in self.hand if card.is_match(topcard)]
+            if len(matches) > 0:  # can play
+                for index in range(len(matches)):
+                    # print the playable cards with their number
+                    print(str(index+1) + ": " + str(matches[index]))
+                # get player's choice of which card to play
+                choice = 0
+                while choice < 1 or choice > len(matches):
+                    choicestr = input("Which do you want to play? ")
+                    if choicestr.isdigit():
+                        choice = int(choicestr)
+                # play the chosen card from hand, add it to the pile
+                self.play_card(matches[choice-1],pile)
+            else:  # can't play
+                print("You can't play, so you have to draw.")
+                input("Press enter to draw.")
+                # check if deck is empty -- if so, reset it
+                if deck.is_empty():
+                    deck.reset_deck(pile)
+                # draw a new card from the deck
+                newcard = self.draw_card(deck)
+                print("You drew: "+str(newcard))
+                if newcard.is_match(topcard): # can be played
+                    print("Good -- you can play that!")
+                    self.play_card(newcard,pile)
+                else:   # still can't play
+                    print("Sorry, you still can't play.")
+                input("Press enter to continue.")
+
+    def play_uno():
+        '''play_uno(numPlayers) -> None
+        plays a game of Uno with numPlayers'''
+        print("Dynamic Games presents Uno!")
+        numPlayers = 0
+        numPlayers = int(input("How many people are playing?"))
+        # set up full deck and initial discard pile
+        deck = UnoDeck()
+        pile = UnoPile(deck)
+        # set up the players
+        playerList = []
+        for n in range(numPlayers):
+            # get each player's name, then create an UnoPlayer
+            name = input('Player #'+str(n+1)+', enter your name: ')
+            playerList.append(UnoPlayer(name,deck))
+        # randomly assign who goes first
+        currentPlayerNum = random.randrange(numPlayers)
+        # play the game
+        while True:
+            # print the game status
+            print('-------')
+            for player in playerList:
+                print(player)
+            print('-------')
+            # take a turn
+            playerList[currentPlayerNum].take_turn(deck,pile)
+            # check for a winner
+            if playerList[currentPlayerNum].has_won():
+                print(playerList[currentPlayerNum].get_name()+" wins!")
+                print("Thanks for playing!")
+                break
+            # go to the next player
+            currentPlayerNum = (currentPlayerNum + 1) % numPlayers
+
+    play_uno()
+
+        
