@@ -1,0 +1,273 @@
+# sequel to the untitled game
+# it doesn't make much sense unless you play the first
+gameEnd = False
+
+print("""After evading several agents of the black hand, 
+it is your job to get to the saftey of planet Zyxourq.
+There, you can enlist the aid of your friends.
+Be careful!  Not only is Zyxourq surrounded by a dangerous asteroid belt,
+but the Black Hand is on the watch too!""")
+import turtle
+import random
+wn = turtle.Screen()
+wn.bgcolor("black")
+alex = turtle.Turtle()
+alex.penup()
+alex.fillcolor("blue")
+tess = turtle.Turtle()
+tess.penup()
+tess.fillcolor("gray")
+tess.shape("circle")
+tess.forward(100)
+a = tess.clone()
+a.left(90)
+a.forward(150)
+a.right(90)
+a.forward(80)
+a.left(180)
+b = a.clone()
+b.left(180)
+b.forward(150)
+b.right(90)
+b.forward(250)
+for j in range(50):
+    direction = input("Which way do you want to go?")
+    if direction == "w":
+        alex.forward(10)
+        tess.left(90)
+        a.forward(random.randint(20,30))
+        b.right(30)
+        tess.back(75)
+        b.forward(23)
+        b.left(50)
+        b.forward(50)
+    elif direction == "s":
+        alex.back(10)
+        tess.left(60)
+        tess.forward(random.randint(20,30))
+        a.back(23)
+        b.right(60)
+        b.forward(20)
+    elif direction == "a":
+        alex.left(10)
+        tess.back(100)
+        tess.right(34)
+        a.left(64)
+        a.forward(23)
+        b.right(random.randint(30,200))
+        b.forward(40)
+        b.left(80)
+    elif direction == "d":
+        alex.right(10)
+        tess.forward(random.randint(30,60))
+        a.forward(random.randint(-23,46))
+        b.left(random.randint(-180,180))
+        b.forward(100)
+    elif direction == " ":
+        c = alex.clone()
+        c.shape("square")
+        c.forward(50)
+        for e in [tess, a, b]:
+            if abs(c.xcor() - e.xcor()) <=25 and abs(c.ycor() - e.ycor()) <=25:
+                e.hideturtle()
+                e.back(5000)
+                c.hideturtle()
+                c.back(1000)
+                break
+            else:
+                c.hideturtle()
+                c.back(1000)
+                break
+    for i in [tess, a, b]:
+        if abs(i.xcor()-alex.xcor()) <= 30 and abs(i.ycor() - alex.ycor()) <= 30:
+            wn.bgcolor("red")
+            alex.write("Game over!")
+            wn.title("Game over!")
+            print("You crashed into an asteroid the Hydrofloric Ethylene is lost!")
+            gameEnd = True
+            break
+    if gameEnd  == True:
+        wn.clearscreen()
+        wn._delete(wn)
+        break
+alex.home()
+alex.forward(100)
+b.reset()
+a.reset()
+tess.reset()
+for g in [a, b, tess]:
+    g.penup()
+    g.back(1000)
+print("""You've passed the asteroid belt!
+Unfortunately, the Black Hand has found you and has sent a ship to bring you in.
+If you can't get to Zyxourq,
+the Black Hand will find the Hydrofloric Ethylene!
+You must get past this ship!
+By the way, we have just recieved a radio transmission revealing that the space key will release a bomb.
+This bomb is very small, so make sure you are in range!""")
+bill = turtle.Turtle()
+bill.penup()
+bill.forward(300)
+bill.fillcolor("orange")
+bill.forward(200)
+bill.left(90)
+bill.forward(400)
+bill.begin_fill()
+for i in range(4):
+    bill.right(90)
+    bill.forward(800)
+bill.end_fill()
+bill.back(20)
+bill.right(90)
+bill.forward(40)
+bill.hideturtle()
+bill.write("Planet Zyxourq")
+fighter = turtle.Turtle()
+fighter.penup()
+fighter.fillcolor("red")
+fighter.forward(120)
+fighter.left(180)
+for j in range(10000000000000000000000000000000000000000000000):
+    direction = input("Which way do you want to go?")
+    if direction == "w":
+        alex.forward(10)
+        fighter.setx(alex.xcor() + 16)
+        fighter.sety(alex.ycor())
+        fighter.forward(random.randint(-5,7))
+    elif direction == "s":
+        alex.back(10)
+        fighter.setx(alex.xcor() + 16)
+        fighter.sety(alex.ycor())
+        fighter.back(random.randint(-7,5))
+    elif direction == "a":
+        alex.left(10)
+        fighter.forward(5)
+    elif direction == "d":
+        alex.right(10)
+        fighter.forward(5)
+    elif direction == " ":
+        c = alex.clone()
+        c.shape("square")
+        c.forward(10)
+        if abs(c.xcor() - fighter.xcor()) <= 5 and abs(c.ycor() - fighter.ycor()) <= 5:
+            fighter.hideturtle()
+            fighter.forward(500)
+            c.hideturtle()
+            c.back(500)
+            print("Horray, you have destroyed the enemy ship!")
+        else:
+            c.hideturtle()
+            c.back(1000)
+    if abs(fighter.xcor()-alex.xcor()) <= 10 and abs(fighter.ycor() - alex.ycor()) <= 10:
+        wn.bgcolor("red")
+        alex.write("Game over!")
+        wn.title("Game over!")
+        print("Your ship was shot by the enemy!")
+        break
+    if alex.xcor() > 500:
+        print("You made it to Zyxourq!  You have won!")
+        fighter.fillcolor("light green")
+        fighter.write("The Black Hand will strike again!")
+        fighter.forward(10000)
+        alex.write("Horray!")
+        alex.clear()
+        fighter.clear()
+        c.clear()
+        bill.clear()
+        alex.hideturtle()
+        fighter.hideturtle()
+        c.hideturtle()
+        bill.hideturtle()
+        wn._delete(wn)
+        import turtle
+        wn = turtle.Screen()
+        wn.bgcolor("black")
+        writer = turtle.Turtle()
+        writer.hideturtle()
+        writer.speed(0)
+        writer.write("You've made it to Zyxourq", align = "center", font = ("Franklin Gothic Demi", 20, "normal"))
+        for i in range(int(100000000/2)):
+            pass
+        writer.clear()
+        writer.write("Now what?", align = "center", font = ("Franklin Gothic Demi", 20, "normal"))
+        for i in range(int(100000000/4)):
+            pass
+        writer.clear()
+        wn.bgcolor("orange")
+        writer.fillcolor("grey")
+        writer.left(90)
+        writer.penup()
+        writer.forward(100)
+        writer.right(90)
+        writer.pendown()
+        writer.forward(900)
+        writer.begin_fill()
+        writer.back(1800)
+        writer.right(90)
+        writer.forward(200)
+        writer.left(90)
+        writer.forward(1800)
+        writer.end_fill()
+        ship = turtle.Turtle()
+        ship.resizemode("user")
+        ship.shapesize(2,2,1)
+        ship.penup()
+        ship.speed(0)
+        ship.fillcolor("blue")
+        ship.goto(-900, 0)
+        ship.speed(3)
+        ship.forward(500)
+        ship.speed(2)
+        ship.forward(500)
+        ship.speed(1)
+        ship.forward(500)
+        wn.clearscreen()
+        wn.bgcolor("orange")
+        drawer = turtle.Turtle()
+        drawer.speed(0)
+        drawer.hideturtle()
+        drawer.fillcolor("grey")
+        drawer.forward(-900)
+        drawer.begin_fill()
+        drawer.forward(1800)
+        drawer.right(90)
+        drawer.forward(400)
+        drawer.left(90)
+        drawer.back(1800)
+        drawer.end_fill()
+        drawer.penup()
+        drawer.forward(900)
+        drawer.left(90)
+        drawer.forward(400)
+        drawer.left(15)
+        drawer.pendown()
+        drawer.forward(30)
+        drawer.left(145)
+        drawer.forward(30)
+        drawer.back(30)
+        drawer.right(160)
+        drawer.forward(30)
+        drawer.left(90)
+        drawer.forward(20)
+        drawer.back(40)
+        drawer.forward(20)
+        drawer.right(90)
+        drawer.forward(10)
+        drawer.fillcolor("black")
+        drawer.dot(15)
+        drawer.penup()
+        drawer.fillcolor("red")
+        drawer.right(90)
+        drawer.forward(900)
+        drawer.showturtle()
+        drawer.speed(2)
+        drawer.left(180)
+        drawer.forward(900)
+        wn.clearscreen()
+        for i in range(int(100000000/5)):
+            pass
+        wn.bgcolor("black")
+        writer = turtle.Turtle()
+        writer.write("Untitled: Escape From Zyxourq", align = "center", font = ("Franklin Gothic Demi", 20, "normal"))
+        wn.mainloop()
+wn.mainloop()
