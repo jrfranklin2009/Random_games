@@ -1,2 +1,2 @@
 # Random_games
-A lot of random games I made/had on hand
+A lot of random games I made or had on hand
